@@ -24,4 +24,4 @@ jobs:
           commands: |
             cd examples/default-dashboard-export
             terraform init
-            terraform plan
+            terraform plan -out terraform.tfplan
