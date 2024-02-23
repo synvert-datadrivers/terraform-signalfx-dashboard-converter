@@ -1,0 +1,293 @@
+{
+  "chartExports": [
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "Moving average applied as smoothing function.",
+        "id": "EpSGwz_AIAA",
+        "importOf": "Dp1KnALAcAs",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Transactions per second by host and datacenter",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "Transactions",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Dimension",
+          "defaultPlotType": "AreaChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": null,
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "Transactions",
+              "label": "A",
+              "paletteIndex": null,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": true,
+          "time": {
+            "range": 60000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('demo.trans.count',rollup='rate').sum(by=['demo_host', 'demo_datacenter']).mean(over='15s').publish(label='A')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "EpSGxbaAIAA",
+        "importOf": "Dp1KmyIAcEM",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Exploring Splunk Observability Cloud further",
+        "options": {
+          "markdown": "If you're interested in monitoring infrastructure, <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.start&version=current\" target=\"_blank\">start</a> by installing the <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.Splunk_OpenTelemetry_Connector&version=current\" target=\"_blank\">Splunk OpenTelemetry Connector</a> or <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.other_integrations&version=current\" target=\"_blank\">other integrations</a>. Since Splunk Observability Cloud is great for exploring metrics from any source, we've also injected some sample custom application data into your Splunk Observability Cloud environment and created sample charts from it. To check them out, start by going  to the list of tabs above and selecting `Part 1`.\n<br>\n\nIf you already have metrics in the environment and know what you want to do, go ahead and create a new <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.dashboard&version=current\" target=\"_blank\">dashboard</a> by clicking on the create ('+' sign) icon, and start making your own charts. If you get stuck or need any help, check out our <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.product_documentation&version=current\" target=\"_blank\">product documentation</a> or ask us a question at [observability-support@splunk.com](mailto:observability-support@splunk.com).",
+          "type": "Text"
+        },
+        "packageSpecifications": "",
+        "programText": "",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "EpSGxovAIAA",
+        "importOf": "Dp1Km2bAcFI",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "Real time transaction latency vs. 3 minutes ago",
+        "options": {
+          "areaChartOptions": {
+            "showDataMarkers": false
+          },
+          "axes": [
+            {
+              "highWatermark": null,
+              "highWatermarkLabel": null,
+              "label": "Latency (ms)",
+              "lowWatermark": null,
+              "lowWatermarkLabel": null,
+              "max": null,
+              "min": null
+            }
+          ],
+          "axisPrecision": null,
+          "colorBy": "Metric",
+          "defaultPlotType": "LineChart",
+          "eventPublishLabelOptions": [],
+          "histogramChartOptions": {
+            "colorThemeIndex": 16
+          },
+          "includeZero": false,
+          "legendOptions": {
+            "fields": null
+          },
+          "lineChartOptions": {
+            "showDataMarkers": false
+          },
+          "noDataOptions": null,
+          "onChartLegendOptions": {
+            "dimensionInLegend": null,
+            "showLegend": false
+          },
+          "programOptions": {
+            "disableSampling": false,
+            "maxDelay": null,
+            "minimumResolution": 0,
+            "timezone": null
+          },
+          "publishLabelOptions": [
+            {
+              "displayName": "95th percentile of latency",
+              "label": "A",
+              "paletteIndex": 11,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            },
+            {
+              "displayName": "95th percentile of latency - 3 minutes ago",
+              "label": "B",
+              "paletteIndex": 2,
+              "plotType": null,
+              "valuePrefix": null,
+              "valueSuffix": null,
+              "valueUnit": null,
+              "yAxis": 0
+            }
+          ],
+          "showEventLines": false,
+          "stacked": false,
+          "time": {
+            "range": 180000,
+            "rangeEnd": 0,
+            "type": "relative"
+          },
+          "type": "TimeSeriesChart",
+          "unitPrefix": "Metric"
+        },
+        "packageSpecifications": "",
+        "programText": "A = data('demo.trans.latency').percentile(pct=95).publish(label='A')\nB = data('demo.trans.latency').percentile(pct=95).timeshift('3m').publish(label='B')",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    },
+    {
+      "chart": {
+        "autoDetectRelatedDetectorIds": [],
+        "created": 0,
+        "creator": null,
+        "customProperties": {},
+        "description": "",
+        "id": "EpSGyJgAAAA",
+        "importOf": "Dp1KptvAcAA",
+        "lastUpdated": 0,
+        "lastUpdatedBy": null,
+        "name": "The basics",
+        "options": {
+          "markdown": "Welcome to Splunk Observability Cloud! To get you started with monitoring and alerting, let's go over some basics. \n\n#####**Dashboards**\nWhether you are seeing how a code push impacts your memory utilization or tracking the behavior of a <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.Kubernetes&version=current\" target=\"_blank\">Kubernetes</a> cluster, a dashboard is the place to organize and share charts and notes (e.g. runbooks) about the things that matter to you. We provide built-in dashboards for many common resources and services once you set up integrations for them, and let you <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.navigate&version=current\" target=\"_blank\">navigate</a> them easily.\n\n#####**Charts**\nDashboards contain one or more charts. Our charts are not just for data visualization; they are also vehicles for exploring metrics about your environment, applying statistical functions or mathematical expressions to the raw metrics you send in, and helping you <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.find_correlations_patterns_and_trends&version=current\" target=\"_blank\">find correlations, patterns and trends</a>. \n\n#####**Alerts**\nSplunk Observability Cloud makes it easy for you to determine when your apps or infrastructure are behaving within normal bounds, and to tell you when they're not. You can read more about setting up detectors and alerts in our <a href=\"https://quickdraw.splunk.com/redirect/?product=Observability&location=sample_dashboard_group.documentation&version=current\" target=\"_blank\">documentation</a>.",
+          "type": "Text"
+        },
+        "packageSpecifications": "",
+        "programText": "",
+        "relatedDetectorIds": [],
+        "tags": null
+      }
+    }
+  ],
+  "dashboardExport": {
+    "dashboard": {
+      "authorizedWriters": null,
+      "chartDensity": "DEFAULT",
+      "charts": [
+        {
+          "chartId": "EpSGyJgAAAA",
+          "column": 0,
+          "height": 2,
+          "row": 0,
+          "width": 6
+        },
+        {
+          "chartId": "EpSGwz_AIAA",
+          "column": 6,
+          "height": 1,
+          "row": 0,
+          "width": 6
+        },
+        {
+          "chartId": "EpSGxovAIAA",
+          "column": 6,
+          "height": 1,
+          "row": 1,
+          "width": 6
+        },
+        {
+          "chartId": "EpSGxbaAIAA",
+          "column": 0,
+          "height": 1,
+          "row": 2,
+          "width": 12
+        }
+      ],
+      "created": 0,
+      "creator": null,
+      "customProperties": null,
+      "description": "A dashboard that introduces users to basic navigation in Splunk Observability Cloud. To explore Splunk Observability Cloud's features and benefits, please continue on to part 1.",
+      "discoveryOptions": null,
+      "eventOverlays": [
+        {
+          "eventColorIndex": 2,
+          "eventLine": true,
+          "eventSignal": {
+            "detectorId": null,
+            "eventSearchText": "demo.trans.latency Detector",
+            "eventType": "detectorEvents"
+          },
+          "label": "demo.trans.latency Detector",
+          "overlayId": "xwZrJn",
+          "sources": []
+        }
+      ],
+      "filters": {
+        "sources": null,
+        "time": null,
+        "variables": null
+      },
+      "groupId": "EpSGwk4AIAA",
+      "groupName": "Sample data",
+      "id": "EpSGyqBAAAE",
+      "importOf": "Dp1Kq_9AcDQ",
+      "lastUpdated": 0,
+      "lastUpdatedBy": null,
+      "maxDelayOverride": null,
+      "name": "Intro to Splunk Observability Cloud",
+      "permissions": null,
+      "selectedEventOverlays": null,
+      "tags": null
+    }
+  },
+  "hashCode": -1985826296,
+  "id": "EpSGyqBAAAE",
+  "modelVersion": 1,
+  "packageType": "DASHBOARD"
+}

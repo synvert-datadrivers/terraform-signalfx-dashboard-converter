@@ -7,18 +7,18 @@ locals {
     name              = local.dashboard["name"]
     description       = local.dashboard["name"]
     charts_resolution = lower(local.dashboard["chartDensity"])
-    start_time        = local.dashboard_has_absolute_time_filter ? local.dashboard["filters"]["time"]["start"] : null
-    end_time          = local.dashboard_has_absolute_time_filter ? local.dashboard["filters"]["time"]["end"] : null
-    time_range        = local.dashboard_has_absolute_time_filter ? null : local.dashboard["filters"]["time"]["start"]
-    filters = [
+    start_time        = local.dashboard_has_absolute_time_filter ? try(local.dashboard["filters"]["time"]["start"], null) : null
+    end_time          = local.dashboard_has_absolute_time_filter ? try(local.dashboard["filters"]["time"]["end"], null) : null
+    time_range        = local.dashboard_has_absolute_time_filter ? null : try(local.dashboard["filters"]["time"]["start"], null)
+    filters = local.dashboard["filters"]["sources"] != null ? [
       for filter in local.dashboard["filters"]["sources"] : {
         property       = filter["property"]
         negated        = filter["NOT"]
         values         = flatten([filter["value"]])
         apply_if_exist = filter["applyIfExists"]
       }
-    ]
-    variables = [
+    ] : []
+    variables = local.dashboard["filters"]["variables"] != null ? [
       for variable in local.dashboard["filters"]["variables"] : {
         property               = variable["property"]
         alias                  = variable["alias"]
@@ -30,7 +30,7 @@ locals {
         replace_only           = variable["replaceOnly"]
         apply_if_exist         = variable["applyIfExists"]
       }
-    ]
+    ] : []
     charts = {
       for chart in local.dashboard["charts"] : chart["chartId"] => {
         column = chart["column"]
