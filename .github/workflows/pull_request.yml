@@ -20,6 +20,7 @@ jobs:
           terraform-version: "latest"
           skip-caches: "false"
           enable-debug: "true"
+          enable-terraform-change-pr-commenter: "true"
           commands: |
             cd examples/default-dashboard-export
             terraform init
