@@ -1,0 +1,23 @@
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'examples/default-dashboard-export/**'
+      - '.github/workflows/pull_request.yml'
+
+jobs:
+  terraform-validate:
+    name: Validate Example
+    runs-on: ubuntu-22.04
+    steps:
+      - name: run terraform
+        uses: datadrivers/terragrunt-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          terraform-version: "latest"
+          skip-caches: "false"
+          commands: |
+            cd examples/default-dashboard-export
+            terragrunt init
+            terraform plan
