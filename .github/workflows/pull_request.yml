@@ -11,6 +11,8 @@ jobs:
     name: Validate Example
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: run terraform
         uses: datadrivers/terragrunt-action@v1
         with:
