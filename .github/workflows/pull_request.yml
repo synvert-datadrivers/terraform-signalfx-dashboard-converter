@@ -43,8 +43,8 @@ jobs:
           ci: false
           branches: |
             [
-              "${{ github.head_ref }}",
-              "${{ github.ref }}"
+              "${{ github.ref }}",
+              "${{ github.head_ref }}"
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
