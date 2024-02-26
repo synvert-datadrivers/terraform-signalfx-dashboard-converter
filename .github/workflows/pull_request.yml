@@ -36,5 +36,6 @@ jobs:
             @semantic-release/git
             @semantic-release/changelog
           dry_run: true
+          branch: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
