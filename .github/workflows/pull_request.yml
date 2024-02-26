@@ -32,26 +32,3 @@ jobs:
             cd examples/default-dashboard-export
             terraform init
             terraform plan -out terraform.tfplan
-
-
-      - name: debug
-        run: |
-          git ls-remote --heads origin
-
-      - name: Test Semantic Release
-        uses: cycjimmy/semantic-release-action@v4.0.0
-        with:
-          extra_plugins: |
-            @semantic-release/changelog
-          dry_run: true
-          ci: false
-          branches: |
-            [
-              "${{ github.head_ref }}",
-              "${{ github.ref }}",
-            ]
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTIONS: ""
-          ACTIONS_STEP_DEBUG: true
-          DEBUG: "semantic-release:*"
