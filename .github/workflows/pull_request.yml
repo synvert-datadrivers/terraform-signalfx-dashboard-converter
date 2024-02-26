@@ -33,6 +33,11 @@ jobs:
             terraform init
             terraform plan -out terraform.tfplan
 
+
+      - name: debug
+        run: |
+          git ls-remote --heads origin
+
       - name: Test Semantic Release
         uses: cycjimmy/semantic-release-action@v4.0.0
         with:
