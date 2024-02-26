@@ -42,11 +42,7 @@ jobs:
           branches: |
             [
               "main",
-              {
-                "name": "${{ github.event.pull_request.head.ref }}",
-                "channel": "next",
-                "prerelease": true
-              }
+              "${{ github.event.pull_request.head.ref }}"
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
