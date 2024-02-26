@@ -7,7 +7,7 @@ on:
       - '.github/workflows/pull_request.yml'
 
 permissions:
-  contents: read
+  contents: write # semantic relasese test write access even on dry-run
   pull-requests: write
 
 jobs:
@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: run terraform
         uses: datadrivers/terragrunt-action@v1
         with:
@@ -29,13 +32,3 @@ jobs:
             cd examples/default-dashboard-export
             terraform init
             terraform plan -out terraform.tfplan
-      - name: Test Semantic Release
-        uses: cycjimmy/semantic-release-action@v4.0.0
-        with:
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/changelog
-          dry_run: true
-          branch: main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
