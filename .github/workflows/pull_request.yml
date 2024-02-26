@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
       - name: run terraform
         uses: datadrivers/terragrunt-action@v1
         with:
@@ -41,7 +43,7 @@ jobs:
             [
               "main",
               {
-                "name": "refs/pull/**",
+                "name": "${{ github.event.pull_request.base.ref }}",
                 "channel": "next",
                 "prerelease": true
               }
