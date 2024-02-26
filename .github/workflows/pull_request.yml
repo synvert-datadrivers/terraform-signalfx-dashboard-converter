@@ -42,8 +42,7 @@ jobs:
           branches: |
             [
               "main",
-              "${{ github.ref }}",
-              ""
+              "${{ github.ref }}"
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
