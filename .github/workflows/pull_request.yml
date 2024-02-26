@@ -42,7 +42,7 @@ jobs:
           branches: |
             [
               "main",
-              "${{ github.ref }}"
+              "refs/pull/*/merge"
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
