@@ -36,6 +36,13 @@ jobs:
             @semantic-release/git
             @semantic-release/changelog
           dry_run: true
-          branch: main
+          branches: |
+            [
+              {
+                "name": "refs/pull/**",
+                "channel": "next",
+                "prerelease": true
+              }
+            ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
