@@ -52,4 +52,6 @@ jobs:
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTIONS: ""
+          ACTIONS_STEP_DEBUG: true
           DEBUG: "semantic-release:*"
