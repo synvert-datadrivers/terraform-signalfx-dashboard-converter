@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+
       - name: run terraform
         uses: datadrivers/terragrunt-action@v1
         with:
@@ -42,7 +42,8 @@ jobs:
           branches: |
             [
               "main",
-              "${{ github.event.pull_request.head.ref }}"
+              "${{ github.ref }}",
+              ""
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
