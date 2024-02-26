@@ -47,9 +47,9 @@ jobs:
           ci: false
           branches: |
             [
-              "${{ github.head_ref }}"
+              "${{ github.head_ref }}",
+              "${{ github.ref }}",
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REF: ${{ github.head_ref }}
           DEBUG: "semantic-release:*"
