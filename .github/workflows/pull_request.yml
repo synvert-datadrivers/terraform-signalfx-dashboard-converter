@@ -29,3 +29,12 @@ jobs:
             cd examples/default-dashboard-export
             terraform init
             terraform plan -out terraform.tfplan
+      - name: Test Semantic Release
+        uses: cycjimmy/semantic-release-action@v4.0.0
+        with:
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/changelog
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
