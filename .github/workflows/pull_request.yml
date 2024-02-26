@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.ref }}
+          ref: ${{ github.head_ref }}
 
       - name: run terraform
         uses: datadrivers/terragrunt-action@v1
@@ -45,7 +45,8 @@ jobs:
           branches: |
             [
               "main",
-              "${{ github.ref }}"
+              "${{ github.head_ref }}",
+              "refs/pull/*/merge"
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
