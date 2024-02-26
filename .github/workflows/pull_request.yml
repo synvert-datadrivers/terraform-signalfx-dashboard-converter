@@ -39,6 +39,7 @@ jobs:
           ci: false
           branches: |
             [
+              "main",
               {
                 "name": "refs/pull/**",
                 "channel": "next",
