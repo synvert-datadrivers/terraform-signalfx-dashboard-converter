@@ -43,7 +43,7 @@ jobs:
             [
               "main",
               {
-                "name": "${{ github.event.pull_request.base.ref }}",
+                "name": "${{ github.event.pull_request.head.ref }}",
                 "channel": "next",
                 "prerelease": true
               }
