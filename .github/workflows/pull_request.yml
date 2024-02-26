@@ -36,6 +36,7 @@ jobs:
             @semantic-release/git
             @semantic-release/changelog
           dry_run: true
+          ci: false
           branches: |
             [
               {
