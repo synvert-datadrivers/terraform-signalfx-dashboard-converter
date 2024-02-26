@@ -7,7 +7,7 @@ on:
       - '.github/workflows/pull_request.yml'
 
 permissions:
-  contents: read
+  contents: write # semantic relasese test write access even on dry-run
   pull-requests: write
 
 jobs:
