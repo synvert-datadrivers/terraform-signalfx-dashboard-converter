@@ -27,7 +27,7 @@ jobs:
           terraform-version: "latest"
           skip-caches: "false"
           enable-debug: "true"
-          enable-terraform-change-pr-commenter: "true"
+          enable-terraform-change-pr-commenter: "false"
           commands: |
             terraform test
   terraform-validate:
