@@ -11,7 +11,28 @@ permissions:
   pull-requests: write
 
 jobs:
+  terraform-tests:
+    name: run tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: run terraform
+        uses: datadrivers/terragrunt-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          terraform-version: "latest"
+          skip-caches: "false"
+          enable-debug: "true"
+          enable-terraform-change-pr-commenter: "true"
+          commands: |
+            terraform test
   terraform-validate:
+    needs:
+      - terraform-tests
     name: Validate Example
     runs-on: ubuntu-22.04
     steps:
@@ -29,6 +50,6 @@ jobs:
           enable-debug: "true"
           enable-terraform-change-pr-commenter: "true"
           commands: |
-            cd examples/default-dashboard-export
+            pushd examples/default-dashboard-export
             terraform init
             terraform plan -out terraform.tfplan
