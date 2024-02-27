@@ -18,6 +18,10 @@ output "signalfx_table_charts" {
   value = local.signalfx_table_charts
 }
 
+output "signalfx_text_charts" {
+  value = local.signalfx_text_charts
+}
+
 output "signalfx_dashboard" {
   value = local.signalfx_dashboard
 }
