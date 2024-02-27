@@ -5,7 +5,3 @@ For this example we've exported one of the example data dashboard from SignalFX 
 You can find the export button in the top right corner of the dashboard.
 
 ![Export Menu](./Export_Menu.png)
-
-## Examples
-
-You can find examples in the [examples](./examples) directory.
