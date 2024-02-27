@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/synvert-datadrivers/terraform-signalfx-dashboard-converter/compare/v1.0.1...v1.1.0) (2024-02-27)
+
+
+### Features
+
+* add support for text charts ([336d4f9](https://github.com/synvert-datadrivers/terraform-signalfx-dashboard-converter/commit/336d4f958f680e7212949e4b4a7d2e75906a201e))
+* add test for example input ([336d326](https://github.com/synvert-datadrivers/terraform-signalfx-dashboard-converter/commit/336d3260b867b9971e54fb56d6d0905dab78722d))
+
 ## [1.0.1](https://github.com/synvert-datadrivers/terraform-signalfx-dashboard-converter/compare/v1.0.0...v1.0.1) (2024-02-26)
 
 
