@@ -2,18 +2,18 @@ locals {
   signalfx_time_charts = {
     for chart in local.charts : chart["id"] => {
       name               = chart["name"]
-      program_text       = chart["programText"]
-      plot_type          = chart["options"]["defaultPlotType"]
+      program_text       = length(chart["programText"]) >= 18 && length(chart["programText"]) <= 50000 ? chart["programText"] : "default_program_text"
+      plot_type          = try(chart["options"]["defaultPlotType"], null)
       description        = chart["description"]
-      axes_precision     = chart["options"]["axisPrecision"]
-      unit_prefix        = chart["options"]["unitPrefix"]
-      color_by           = chart["options"]["colorBy"]
-      minimum_resolution = chart["options"]["programOptions"]["minimumResolution"]
-      max_delay          = chart["options"]["programOptions"]["maxDelay"]
-      timezone           = chart["options"]["programOptions"]["timezone"]
-      disable_sampling   = chart["options"]["programOptions"]["disableSampling"]
-      time_range         = chart["options"]["time"]["range"]
-      axes_include_zero  = chart["options"]["includeZero"]
+      axes_precision     = try(chart["options"]["axisPrecision"], null)
+      unit_prefix        = try(chart["options"]["unitPrefix"], null)
+      color_by           = contains(["Metric", "Dimension", "Scale"], lookup(chart["options"], "colorBy", "Metric")) ? lookup(chart["options"], "colorBy", "Metric") : "Metric"
+      minimum_resolution = try(chart["options"]["programOptions"]["minimumResolution"], null)
+      max_delay          = try(chart["options"]["programOptions"]["maxDelay"], null)
+      timezone           = try(chart["options"]["programOptions"]["timezone"], null)
+      disable_sampling   = try(chart["options"]["programOptions"]["disableSampling"], null)
+      time_range         = try(chart["options"]["time"]["range"], null)
+      axes_include_zero  = try(chart["options"]["includeZero"], null)
       axis_left = try(
         {
           high_watermark       = chart["options"]["axes"][0]["highWatermark"]
@@ -43,48 +43,15 @@ locals {
         {
           label        = option["label"]
           display_name = option["displayName"]
-          axis         = local.axis_lookup_map[option["yAxis"]]
-          plot_type    = option["plotType"]
+          axis         = try(local.axis_lookup_map[option["yAxis"]], null)
+          plot_type    = try(option["plotType"], null)
           value_unit   = option["valueUnit"]
           value_prefix = option["valuePrefix"]
           value_suffix = option["valueSuffix"]
           color        = try(local.color_map_for_viz_options[option["paletteIndex"]], null)
         } if option != null
       ]
-      event_options = try(
-        [
-          for event in chart["options"]["eventPublishLabelOptions"] : {
-            label        = event["label"]
-            display_name = event["displayName"]
-            # TODO: Verify this is the right color map
-            color = try(local.color_map_for_viz_options[event["paletteIndex"]], null)
-          }
-        ],
-        []
-      )
-      # TODO: Verify this is the right color map
-      histogram_options = try(
-        local.color_map_for_viz_options[chart["options"]["histogramChartOptions"]["colorThemeIndex"]],
-        null
-      )
-      legend_option_fields = try(
-        [
-          for field in coalesce(chart["options"]["legendOptions"]["fields"], []) : {
-            property = field["property"]
-            enabled  = field["enabled"]
-          }
-        ],
-        []
-      )
-      on_chart_legend_dimension = chart["options"]["onChartLegendOptions"]["dimensionInLegend"]
-      show_event_lines          = chart["options"]["showEventLines"]
-      show_data_markers         = chart["options"]["lineChartOptions"]["showDataMarkers"]
-
-      # missing fields not yet known how to map:
-      # - start_time - (Optional) Seconds since epoch. Used for visualization. Conflicts with time_range.
-      # - end_time - (Optional) Seconds since epoch. Used for visualization. Conflicts with time_range.
-
+      on_chart_legend_dimension = try(chart["options"]["onChartLegendOptions"]["dimensionInLegend"], null)
     }
-    if chart["options"]["type"] == "TimeSeriesChart"
   }
 }

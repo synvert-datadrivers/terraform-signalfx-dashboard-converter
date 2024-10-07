@@ -7,12 +7,12 @@ locals {
       color_by     = chart["options"]["colorBy"]
       color_scales = [
         # TODO: what is the difference between colorScale and colorScale2 in the exported json?
-        for scale in chart["options"]["colorScale2"] : {
+        for scale in (chart["options"]["colorScale2"] != null ? chart["options"]["colorScale2"] : []) : {
           gt    = scale["gt"]
           gte   = scale["gte"]
           lt    = scale["lt"]
           lte   = scale["lte"]
-          color = local.color_map_for_scales[scale["paletteIndex"]]
+          color = try(local.color_map_for_scales[scale["paletteIndex"]], null)
         }
       ]
       viz_options = [
