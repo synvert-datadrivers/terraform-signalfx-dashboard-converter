@@ -15,44 +15,51 @@ permissions:
 jobs:
   terraform-tests:
     name: run tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: run terraform
-        uses: datadrivers/terragrunt-action@v1
+      - name: install terraform
+        uses: datadrivers/terragrunt-action@v4
+        env:
+          TENV_GITHUB_TOKEN: ${{ github.token}}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           terraform-version: "latest"
           skip-caches: "false"
           enable-debug: "true"
-          enable-terraform-change-pr-commenter: "false"
-          commands: |
+      - name: run terraform
+        run: |
             terraform init
             terraform test
   terraform-validate:
     needs:
       - terraform-tests
     name: Validate Example
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: run terraform
-        uses: datadrivers/terragrunt-action@v1
+      - name: install terraform
+        uses: datadrivers/terragrunt-action@v4
+        env:
+          TENV_GITHUB_TOKEN: ${{ github.token}}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           terraform-version: "latest"
           skip-caches: "false"
           enable-debug: "true"
-          enable-terraform-change-pr-commenter: "true"
-          commands: |
-            pushd examples/default-dashboard-export
-            terraform init
-            terraform plan -out terraform.tfplan
+      - name: run terraform
+        run: |
+          pushd examples/default-dashboard-export
+          terraform init
+          terraform plan -out terraform.tfplan
+      - name: add PR comment with plan results
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: datadrivers/terragrunt-action/terraform-pr-commenter@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
