@@ -14,3 +14,7 @@ module "converter" {
 output "converter" {
   value = module.converter
 }
+
+terraform {
+  required_version = ">= 1.5"
+}
