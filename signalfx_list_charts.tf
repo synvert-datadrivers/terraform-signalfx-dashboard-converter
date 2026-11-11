@@ -41,7 +41,34 @@ locals {
           color = try(local.color_map_for_scales[scale["paletteIndex"]], null)
         }
       ]
-      sort_by    = chart["options"]["sortBy"]
+      sort_by = try(
+      (
+        trimspace(coalesce(
+          chart["options"]["sortBy"],
+          chart["options"]["sortProperty"],
+          ""
+        )) == "" ? null :
+        (
+          startswith(trimspace(coalesce(
+            chart["options"]["sortBy"],
+            chart["options"]["sortProperty"],
+            ""
+          )), "+") ||
+          startswith(trimspace(coalesce(
+            chart["options"]["sortBy"],
+            chart["options"]["sortProperty"],
+            ""
+          )), "-")
+          ? trimspace(coalesce(
+              chart["options"]["sortBy"],
+              chart["options"]["sortProperty"],
+              ""
+            ))
+          : "${lower(try(chart["options"]["sortDirection"], "ascending")) == "descending" ? "-" : "+"}${trimspace(coalesce(chart["options"]["sortBy"], chart["options"]["sortProperty"], ""))}"
+        )
+      ),
+      null
+    )
       time_range = chart["options"]["time"]["range"]
 
       # missing fields not yet known how to map:
