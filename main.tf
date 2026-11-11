@@ -1,7 +1,10 @@
 locals {
   dashboard_json = jsondecode(file(var.dashboard_file_path))
   charts         = [for chart in local.dashboard_json["chartExports"] : chart["chart"]]
-  dashboard      = local.dashboard_json["dashboardExport"]["dashboard"]
+  dashboard = try(
+    local.dashboard_json["dashboardExports"][0]["dashboard"],
+    local.dashboard_json["dashboardExport"]["dashboard"]
+  )
   axis_lookup_map = {
     # translates the yAxis value for viz options between the inger value and the name
     0 = "left"

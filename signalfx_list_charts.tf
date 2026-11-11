@@ -6,7 +6,7 @@ locals {
       description         = chart["description"]
       unit_prefix         = chart["options"]["unitPrefix"]
       color_by            = chart["options"]["colorBy"]
-      max_delay           = chart["options"]["programOptions"]["maxDelay"]
+      max_delay           = try(tonumber(chart["options"]["programOptions"]["maxDelay"])/1000, null)
       timezone            = chart["options"]["programOptions"]["timezone"]
       disable_sampling    = chart["options"]["programOptions"]["disableSampling"]
       refresh_interval    = chart["options"]["refreshInterval"]
@@ -31,7 +31,7 @@ locals {
       ]
       max_precision           = chart["options"]["maximumPrecision"]
       secondary_visualization = chart["options"]["secondaryVisualization"]
-      color_scales = [
+      color_scales = try([
         # TODO: what is the difference between colorScale and colorScale2 in the exported json?
         for scale in chart["options"]["colorScale2"] : {
           gt    = scale["gt"]
@@ -40,8 +40,35 @@ locals {
           lte   = scale["lte"]
           color = try(local.color_map_for_scales[scale["paletteIndex"]], null)
         }
-      ]
-      sort_by    = chart["options"]["sortBy"]
+      ], [])
+      sort_by = try(
+        (
+          trimspace(coalesce(
+            chart["options"]["sortBy"],
+            chart["options"]["sortProperty"],
+            ""
+          )) == "" ? null :
+          (
+            startswith(trimspace(coalesce(
+              chart["options"]["sortBy"],
+              chart["options"]["sortProperty"],
+              ""
+            )), "+") ||
+            startswith(trimspace(coalesce(
+              chart["options"]["sortBy"],
+              chart["options"]["sortProperty"],
+              ""
+            )), "-")
+            ? trimspace(coalesce(
+                chart["options"]["sortBy"],
+                chart["options"]["sortProperty"],
+                ""
+              ))
+            : "${lower(try(chart["options"]["sortDirection"], "ascending")) == "descending" ? "-" : "+"}${trimspace(coalesce(chart["options"]["sortBy"], chart["options"]["sortProperty"], ""))}"
+          )
+        ),
+        null
+      )
       time_range = chart["options"]["time"]["range"]
 
       # missing fields not yet known how to map:
